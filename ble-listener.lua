@@ -41,36 +41,14 @@ storm.bl.enable("unused", onconnect, function()
    local svc_handle = storm.bl.addservice(0x1337)
    char_handle = storm.bl.addcharacteristic(svc_handle, 0x1338, function(x)
         print ("received: ",x)
-  table.insert(entries, x)
-  table.foreach(entries, print)
+	table.insert(entries, x)
+	table.foreach(entries, print)
   -- update tablelength count
   tablelength(entries)
    end)
 end)
 
 ------------LCD display code-------------------
-function disp_lcd(idx)
-  local v1 = tostring(idx)
-  local v2 = entries[idx]
-  write_to_lcd(v1, v2)
-end
-
-function lcd_setup()
-    lcd = LCD.new(storm.i2c.EXT, 0x7c, storm.i2c.EXT, 0xc4)
-end
-
-function write_to_lcd(value1, value2)
-    cord.new(function ()
-        lcd.init(2, 1)
-        lcd.writeString(value1)
-        lcd.setBacklight(150, 50, 220)
-        if value2 ~= nil then
-          lcd.setCursor(1, 0)
-          lcd.writeString(value2)
-        end
-    end)
-end
-
 
 function start()
   b1 = Button:new("D9")
